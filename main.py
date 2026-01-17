@@ -1,16 +1,18 @@
-# This is a sample Python script.
+from fastapi import FastAPI
+# Importamos usando la nueva ruta de la carpeta
+from api.routers.tareas import router as tareas_router
 
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+app = FastAPI(title="Mi App de FastAPI")
+app.include_router(tareas_router)
 
+app = FastAPI(
+    title="Mi App de FastAPI",
+    description="Esta es una descripción general de mi API para el examen de Humai"
+)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# ESTA ES LA LÍNEA QUE FALTA PARA QUE APAREZCAN LOS ENDPOINTS
+app.include_router(tareas_router)
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+@app.get("/")
+def read_root():
+    return {"message": "Mi primera app con FastAPI, soy vicente"}
